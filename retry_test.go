@@ -14,7 +14,7 @@ func TestRetry(t *testing.T) {
 	// This function is successful on "successOn" calls.
 	f := func() error {
 		i++
-		log.Printf("function is called %d. time\n", i)
+		log.Printf("f called %d time(s)", i)
 
 		if i == successOn {
 			log.Println("OK")
@@ -47,7 +47,7 @@ func TestRetryNotifyWithStop(t *testing.T) {
 	}
 
 	if called != 1 {
-		t.Error("function should be called once")
+		t.Error("f should be called once")
 	}
 }
 
