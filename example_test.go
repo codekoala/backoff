@@ -1,6 +1,9 @@
 package backoff
 
-import "log"
+import (
+	"context"
+	"log"
+)
 
 func ExampleRetry() {
 	// An operation that may fail.
@@ -46,4 +49,22 @@ func ExampleTicker() {
 
 	// Operation is successful.
 	return
+}
+
+func ExampleRetryNotifyWithContext() {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	// An operation that may fail.
+	operation := func() error {
+		return nil // or an error
+	}
+
+	err := RetryNotifyWithContext(ctx, operation, NewExponentialBackOff(), nil)
+	if err != nil {
+		// Handle error.
+		return
+	}
+
+	// Operation is successful.
 }
